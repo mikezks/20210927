@@ -46,6 +46,8 @@ export class FlightService {
 
     return this.http.get<Flight[]>(url, { params, headers });
     // return of(flights).pipe(delay(this.reqDelay))
+
+    // Trainer was here! :)
   }
 
   findById(id: string): Observable<Flight> {
