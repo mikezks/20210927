@@ -2,6 +2,7 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 const mf = require("@angular-architects/module-federation/webpack");
 const path = require("path");
 const share = mf.share;
+const shareAll = mf.shareAll;
 
 const sharedMappings = new mf.SharedMappings();
 sharedMappings.register(
@@ -30,14 +31,23 @@ module.exports = {
             './module': './apps/passenger/src/app/passenger/passenger.module.ts',
         },
 
-        shared: share({
+        shared: /* share({
           "@angular/core": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
           "@angular/common": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
           "@angular/common/http": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
           "@angular/router": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-
+ */
+        {
+          ...shareAll({
+            singleton: true,
+            strictVersion: true,
+            requiredVersion: 'auto',
+            includeSecondaries: {
+              skip: ['@angular/http/testing']
+            }
+          }),
           ...sharedMappings.getDescriptors()
-        })
+        }
 
     }),
     sharedMappings.getPlugin()
