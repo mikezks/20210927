@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import {WEEKDAYS} from './app.token';
 
 @Component({
   selector: 'flight-app',
@@ -6,4 +7,7 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(@Inject(WEEKDAYS) private weekdays: string[]) {
+    console.log(weekdays);
+  }
 }

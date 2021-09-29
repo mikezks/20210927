@@ -14,6 +14,12 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SharedModule } from './shared/shared.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { WEEKDAYS } from './app.token';
+import { FeatureModule } from './feature/feature.module';
+import { environment } from '../environments/environment';
+
+
+
 
 @NgModule({
   imports: [
@@ -27,6 +33,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     FlightLibModule.forRoot(),
     SharedModule.forRoot(),
     RouterModule.forRoot(APP_ROUTES),
+    environment.production ? FeatureModule : []
   ],
   declarations: [
     AppComponent,
@@ -35,7 +42,11 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     HomeComponent,
     BasketComponent
   ],
-  providers: [],
+  providers: [
+    { provide: WEEKDAYS, useValue: 'Monday', multi: true },
+    { provide: WEEKDAYS, useValue: 'Tuesday', multi: true },
+    { provide: WEEKDAYS, useValue: 'Wednesday', multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
