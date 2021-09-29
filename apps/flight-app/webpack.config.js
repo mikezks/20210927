@@ -36,14 +36,23 @@ module.exports = {
           "@angular/router": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
  */
         {
-          ...shareAll({
-            singleton: true,
-            strictVersion: true,
-            requiredVersion: 'auto',
-            includeSecondaries: {
-              skip: ['@angular/http/testing']
-            }
-          }),
+          ...shareAll(
+            {
+              singleton: true,
+              strictVersion: true,
+              requiredVersion: 'auto',
+              includeSecondaries: {
+                skip: [
+                  '@angular/http/testing'
+                ]
+              },
+            },
+            [
+              '@angular-architects/module-federation',
+              '@angular-architects/module-federation-runtime',
+              '@angular-architects/module-federation-tools'
+            ]
+          ),
           ...sharedMappings.getDescriptors()
         }
 
